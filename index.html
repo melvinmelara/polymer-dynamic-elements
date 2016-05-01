@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+		<link rel="import" href="bower_components/polymer/polymer.html">
+		<style type="text/css">
+			li{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body >
+		<ul>
+			<li path="elements/element1.html" element="custom-element1">Elemento 1</li>
+			<li path="elements/element2.html" element="custom-element2">Elemento 2</li>
+			<li path="elements/element3.html" element="custom-element3">Elemento 3</li>
+		</ul>
+		<div id="container">Contenido</div>
+		<script>
+			var elemento = document.querySelectorAll("li");
+			
+			for (var i = 0; i < elemento.length; i++) {
+			    var childElement = elemento[i];
+			    childElement.addEventListener("click",function(){
+			    	
+			    	var view = this.attributes['path'].value;
+			    	var customelement = this.attributes['element'].value;
+			    	
+			    	Polymer.Base.importHref(view, function () {
+						var content = document.querySelector('#container');
+						var element = document.createElement(customelement);
+						
+						content.appendChild(element);
+
+					});
+
+				});
+			}
+		</script>
+	</body>
+</html>
